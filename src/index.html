@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator Javascript</title>
+    <script src="https://kit.fontawesome.com/d73036c961.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div id="root">
@@ -28,64 +29,15 @@
           </div>
         </div>
         <div class="calculator__result-bar">
-          <h2 class="calculator__result">399</h2>
-        </div>
-        <div class="calculator__inputs">
-          <ul class="calculator__inputs-main">
-            <li>
-              <button class="button button--beige">7</button>
-            </li>
-            <li>
-              <button class="button button--beige">8</button>
-            </li>
-            <li>
-              <button class="button button--beige">9</button>
-            </li>
-            <li>
-              <button class="button button--grey">DEL</button>
-            </li>
-            <li>
-              <button class="button button--beige">4</button>
-            </li>
-            <li>
-              <button class="button button--beige">5</button>
-            </li>
-            <li>
-              <button class="button button--beige">6</button>
-            </li>
-            <li>
-              <button class="button button--beige">+</button>
-            </li>
-            <li>
-              <button class="button button--beige">1</button>
-            </li>
-            <li>
-              <button class="button button--beige">2</button>
-            </li>
-            <li>
-              <button class="button button--beige">3</button>
-            </li>
-            <li>
-              <button class="button button--beige">-</button>
-            </li>
-            <li>
-              <button class="button button--beige">.</button>
-            </li>
-            <li>
-              <button class="button button--beige">0</button>
-            </li>
-            <li>
-              <button class="button button--beige">/</button>
-            </li>
-            <li>
-              <button class="button button--beige">x</button>
-            </li>
-          </ul>
-          <div class="calculator__inputs-bottom">
-            <button class="button button--grey">RESET</button>
-            <button class="button button--orange">=</button>
+          <button class="calculator__history">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </button>
+          <div>
+            <h4 class="calculator__temp-result header header--s"></h4>
+            <h2 class="calculator__result header header--l">0</h2>
           </div>
         </div>
+        <ul class="calculator__inputs inputs-grid"></ul>
       </div>
     </div>
   </body>
