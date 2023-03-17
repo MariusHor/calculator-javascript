@@ -8,7 +8,7 @@ export default class App {
     this.inputValues = [7, 8, 9, 'DEL', 4, 5, 6, '+', 1, 2, 3, '-', '.', 0, '/', 'x', 'RESET', '='];
   }
 
-  setInputClass(input) {
+  static setInputClass(input) {
     switch (input) {
       case 'DEL':
       case 'RESET': {
@@ -27,7 +27,7 @@ export default class App {
       .map(
         input => `
         <li>
-          <button class="${this.setInputClass(input)}">${input}</button>
+          <button class="${App.setInputClass(input)}">${input}</button>
         </li>
       `,
       )
