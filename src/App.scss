@@ -55,29 +55,23 @@
     padding: 2rem;
     border-radius: 10px;
     background-color: #242d44;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
 
-    &-main {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-
-      li {
-        width: 100%;
-        height: 100%;
-        border-radius: 5px;
-        overflow: hidden;
-      }
+    li {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+      overflow: hidden;
     }
 
-    &-bottom {
-      display: flex;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
+    li:nth-last-child(2) {
+      grid-column: span 2;
+    }
 
-      button {
-        border-radius: 5px;
-        height: auto;
-      }
+    li:nth-last-child(1) {
+      grid-column: span 2;
     }
   }
 }
@@ -123,7 +117,7 @@
   width: 100%;
   height: 100%;
   padding: 10px 0;
-  transition: 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 
   &--beige {
     background-color: #eae3dc;
@@ -139,6 +133,7 @@
     background-color: #647198;
     color: white;
     font-size: 28px;
+    grid-column: 3/4;
 
     &:hover {
       background-color: #a2b2e1;
