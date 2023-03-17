@@ -3,7 +3,7 @@ import { setMaxDecimals } from './utils';
 export default class Calculator {
   constructor() {
     this.calculatorContainer = document.querySelector('.calculator');
-    this.inputsContainer = document.querySelector('.calculator__inputs');
+    this.inputsContainer = document.querySelector('.calculator__main');
     this.resultbar = document.querySelector('.calculator__result-bar');
     this.resultField = document.querySelector('.calculator__result');
     this.tempField = document.querySelector('.calculator__temp-result');

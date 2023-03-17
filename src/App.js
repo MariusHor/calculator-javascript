@@ -7,7 +7,7 @@ export default class App {
 
     this.isHistoryActive = false;
 
-    this.inputsContainer = this.root.querySelector('.calculator__inputs');
+    this.mainContainer = this.root.querySelector('.calculator__main');
     this.historyButton = document.querySelector('.calculator__history');
 
     this.inputValues = [7, 8, 9, 'DEL', 4, 5, 6, '+', 1, 2, 3, '-', '.', 0, '/', 'x', 'RESET', '='];
@@ -49,36 +49,46 @@ export default class App {
       )
       .join('');
 
-    return inputs;
+    return `
+            <ul class="main-grid">${inputs}</ul>
+    `;
   };
 
   handleHistoryClick = () => {
     this.historyButton.addEventListener('click', () => {
-      const { calculator, inputsContainer, toggleHistoryView } = this;
+      const { calculator, transitionViewSwitch } = this;
 
       if (!calculator.history.slice(1).length) return;
 
-      inputsContainer.innerHTML = '';
-
-      inputsContainer.classList.toggle('inputs-grid');
-      inputsContainer.classList.toggle('history');
-
-      toggleHistoryView();
+      transitionViewSwitch();
     });
   };
 
+  transitionViewSwitch = () => {
+    const { mainContainer, toggleHistoryView } = this;
+
+    setTimeout(() => {
+      mainContainer.innerHTML = '';
+
+      mainContainer.classList.toggle('main-grid');
+      mainContainer.classList.toggle('history');
+      mainContainer.classList.toggle('opacity');
+
+      toggleHistoryView();
+    }, 700);
+
+    mainContainer.classList.toggle('opacity');
+  };
+
   toggleHistoryView = () => {
-    const { calculator, inputsContainer, generateInputButtons } = this;
+    const { calculator, mainContainer, generateInputButtons } = this;
 
     if (!this.isHistoryActive) {
-      inputsContainer.insertAdjacentHTML(
-        'afterbegin',
-        App.generateHistoryMarkup(calculator.history),
-      );
+      mainContainer.insertAdjacentHTML('afterbegin', App.generateHistoryMarkup(calculator.history));
 
       this.isHistoryActive = true;
     } else {
-      inputsContainer.insertAdjacentHTML('afterbegin', generateInputButtons());
+      mainContainer.insertAdjacentHTML('afterbegin', generateInputButtons());
 
       this.isHistoryActive = false;
     }
@@ -102,25 +112,27 @@ export default class App {
   }
 
   handleHistoryItemClick = () => {
-    this.inputsContainer.addEventListener('click', event => {
+    this.mainContainer.addEventListener('click', event => {
       const { result } = event.target.dataset;
       if (!result) return;
 
       this.calculator.tempField.innerHTML = `${event.target.innerHTML} =`;
       this.calculator.initValues().handleNumberType(result);
+
+      this.transitionViewSwitch();
     });
   };
 
   render() {
     const {
-      inputsContainer,
+      mainContainer,
       generateInputButtons,
       calculator,
       handleHistoryClick,
       handleHistoryItemClick,
     } = this;
 
-    inputsContainer.insertAdjacentHTML('afterbegin', generateInputButtons());
+    mainContainer.insertAdjacentHTML('afterbegin', generateInputButtons());
     calculator.run();
 
     handleHistoryClick();
