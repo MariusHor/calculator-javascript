@@ -8,7 +8,7 @@ export default class App {
     this.isHistoryActive = false;
 
     this.mainContainer = this.root.querySelector('.calculator__main');
-    this.historyButton = document.querySelector('.calculator__history');
+    this.historyButton = document.querySelector('.button--history');
 
     this.inputValues = [7, 8, 9, 'DEL', 4, 5, 6, '+', 1, 2, 3, '-', '.', 0, '/', 'x', 'RESET', '='];
   }
@@ -102,7 +102,7 @@ export default class App {
             .map(
               item => `
               <li>
-                  <button data-result=${item.result}>${item.firstOperand} ${item.operation} ${item.secondOperand}</button>
+                  <button class="button" data-result=${item.result}>${item.firstOperand} ${item.operation} ${item.secondOperand}</button>
               </li>
             `,
             )

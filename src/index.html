@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="a basic javascript calculator with history" />
     <title>Calculator Javascript</title>
-    <script src="https://kit.fontawesome.com/d73036c961.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div id="root">
@@ -21,18 +21,23 @@
                 <li>3</li>
               </ul>
               <div class="theme-switch__toggle">
+                <label for="theme-one" class="sr-only">switch to the first theme</label>
                 <input class="button" type="radio" name="toggle" id="theme-one" />
+                <label for="theme-two" class="sr-only">switch to the second theme</label>
                 <input class="button" type="radio" name="toggle" id="theme-two" />
+                <label for="theme-three" class="sr-only">switch to the third theme</label>
                 <input class="button" type="radio" name="toggle" id="theme-three" />
               </div>
             </div>
           </div>
         </div>
         <div class="calculator__result-bar">
-          <button class="calculator__history">
-            <i class="fa-solid fa-clock-rotate-left"></i>
-          </button>
-          <div>
+          <div class="calculator__result-bar-left">
+            <button class="button button--history">
+              <i class="fa-solid fa-clock-rotate-left" title="show calculator history"></i>
+            </button>
+          </div>
+          <div class="calculator__result-bar-right">
             <h4 class="calculator__temp-result header header--s"></h4>
             <h2 class="calculator__result header header--l">0</h2>
           </div>
@@ -40,5 +45,6 @@
         <div class="calculator__main"></div>
       </div>
     </div>
+    <script defer src="https://kit.fontawesome.com/d73036c961.js" crossorigin="anonymous"></script>
   </body>
 </html>
