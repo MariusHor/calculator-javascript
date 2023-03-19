@@ -1,10 +1,10 @@
-import MAX_DECIMALS from '@constants/constants';
+import MAX_RESULT_LENGTH from '@constants/constants';
 
 export const setMaxDecimals = number => {
   if (!Number.isInteger(number)) {
-    const { length } = number.toString();
-    const result = length > MAX_DECIMALS ? number.toFixed(MAX_DECIMALS) : number;
-    return result;
+    const index = number.toString().indexOf('.');
+
+    return number.toFixed(MAX_RESULT_LENGTH - index);
   }
   return number;
 };
