@@ -1,3 +1,3 @@
-const MAX_DECIMALS = 10;
+const MAX_RESULT_LENGTH = 10;
 
-export default MAX_DECIMALS;
+export default MAX_RESULT_LENGTH;

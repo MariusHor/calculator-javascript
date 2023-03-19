@@ -116,8 +116,8 @@ export default class App {
       const { result } = event.target.dataset;
       if (!result) return;
 
-      this.calculator.tempField.innerHTML = `${event.target.innerHTML} =`;
-      this.calculator.initValues().handleNumberType(result);
+      this.calculator.initValues().updateDisplay(+result);
+      this.calculator.setCurrentInput(+result);
 
       this.transitionViewSwitch();
     });

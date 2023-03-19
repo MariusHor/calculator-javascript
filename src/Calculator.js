@@ -1,4 +1,5 @@
 import { setMaxDecimals } from './utils';
+import MAX_RESULT_LENGTH from './constants/constants';
 
 export default class Calculator {
   constructor() {
@@ -19,13 +20,17 @@ export default class Calculator {
     return this;
   }
 
+  setCurrentInput(value) {
+    this.currentInput = value;
+  }
+
   handleNumberType = value => {
-    if (this.currentInput.length > 10) {
+    if (this.currentInput.length > 8) {
       this.resultField.classList.remove('header--l');
       this.resultField.classList.add('header--m');
     }
 
-    if (this.currentInput.length > 14) return;
+    if (this.currentInput.length > MAX_RESULT_LENGTH) return;
 
     if (value !== '.' || (value === '.' && !this.currentInput.includes('.'))) {
       this.currentInput += value;
@@ -44,11 +49,10 @@ export default class Calculator {
     this.currentOperation = value;
 
     this.operate(+this.prevInput, +this.currentInput, this.prevOperation);
+    this.updateDisplay(this.result, this.currentOperation);
 
     this.prevOperation = this.currentOperation;
     this.currentInput = '';
-
-    this.updateDisplay();
   };
 
   handleActionType = value => {
@@ -59,7 +63,7 @@ export default class Calculator {
     }
 
     if (value === 'DEL') {
-      if (this.currentInput.length < 10) {
+      if (this.currentInput.length < 8) {
         this.resultField.classList.remove('header--m');
         this.resultField.classList.add('header--l');
       }
@@ -112,7 +116,7 @@ export default class Calculator {
         this.result = firstOperand;
     }
 
-    if (operation !== '=') {
+    if (secondOperand !== 0 && operation !== '=') {
       this.saveHistory(operation, firstOperand, secondOperand, this.result);
     }
 
@@ -120,7 +124,7 @@ export default class Calculator {
   }
 
   saveHistory(operation, firstOperand, secondOperand) {
-    this.history = this.history.length > 6 ? this.history.slice(1) : this.history;
+    this.history = this.history.length > 5 ? this.history.slice(1) : this.history;
     this.history = [
       ...this.history,
       {
@@ -132,9 +136,11 @@ export default class Calculator {
     ];
   }
 
-  updateDisplay() {
-    this.resultField.innerHTML = setMaxDecimals(this.result);
-    this.tempField.innerHTML = `${setMaxDecimals(this.result)} ${this.currentOperation}`;
+  updateDisplay(input, operation = '=') {
+    const result = setMaxDecimals(input);
+
+    this.resultField.innerHTML = result;
+    this.tempField.innerHTML = `${result} ${operation}`;
   }
 
   run = () => {
