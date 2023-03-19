@@ -4,7 +4,7 @@ export const setMaxDecimals = number => {
   if (!Number.isInteger(number)) {
     const index = number.toString().indexOf('.');
 
-    return number.toFixed(MAX_RESULT_LENGTH - index);
+    if (number.toString().slice(index).length > 5) return number.toFixed(MAX_RESULT_LENGTH - index);
   }
   return number;
 };

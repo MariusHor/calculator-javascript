@@ -17,6 +17,9 @@ export default class Calculator {
     this.prevInput = null;
     this.currentOperation = null;
 
+    this.resultField.classList.remove('header--m');
+    this.resultField.classList.add('header--l');
+
     return this;
   }
 
@@ -116,14 +119,15 @@ export default class Calculator {
         this.result = firstOperand;
     }
 
-    if (secondOperand !== 0 && operation !== '=') {
-      this.saveHistory(operation, firstOperand, secondOperand, this.result);
-    }
+    const formattedResult = setMaxDecimals(this.result);
+    this.prevInput = formattedResult;
 
-    this.prevInput = this.result;
+    if (secondOperand !== 0 && operation !== '=') {
+      this.saveHistory(operation, firstOperand, secondOperand, formattedResult);
+    }
   }
 
-  saveHistory(operation, firstOperand, secondOperand) {
+  saveHistory(operation, firstOperand, secondOperand, result) {
     this.history = this.history.length > 5 ? this.history.slice(1) : this.history;
     this.history = [
       ...this.history,
@@ -131,13 +135,18 @@ export default class Calculator {
         firstOperand,
         operation,
         secondOperand,
-        result: this.result,
+        result,
       },
     ];
   }
 
   updateDisplay(input, operation = '=') {
     const result = setMaxDecimals(input);
+
+    if (result.length > 8) {
+      this.resultField.classList.remove('header--l');
+      this.resultField.classList.add('header--m');
+    }
 
     this.resultField.innerHTML = result;
     this.tempField.innerHTML = `${result} ${operation}`;
