@@ -13,3 +13,11 @@ export const removeChild = (root, selector) => {
   const el = root.querySelector(selector);
   if (el) root.removeChild(el);
 };
+
+export const getEl = selector => document.querySelector(selector);
+
+export const toggleClasses = (element, classes) => {
+  classes.forEach(item => {
+    element.classList.toggle(item);
+  });
+};
