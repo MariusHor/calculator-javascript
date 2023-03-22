@@ -19,20 +19,23 @@ export default class App {
 
   handleSymbolType = symbol => {
     switch (symbol) {
+      case 'Escape':
       case 'RESET':
-        this.model.handleReset();
+        this.model.handleReset().publishValues();
         break;
       case '=':
+      case 'Enter':
         this.model.handleEquals();
         break;
       case 'DEL':
+      case 'Backspace':
         this.model.handleDel();
         break;
       case '.':
         this.model.handleDecimal();
         break;
       default:
-        this.model.handleMath(symbol);
+        this.model.handleSymbol(symbol);
     }
   };
 
@@ -42,7 +45,7 @@ export default class App {
 
   handleHistoryItemClick = id => {
     this.transitionViewSwitch();
-    this.model.setValues(id).publishValues();
+    this.model.setValuesfromHistory(id).publishValues();
   };
 
   transitionViewSwitch = () => {

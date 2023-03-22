@@ -1,5 +1,6 @@
-import { randomId, setMaxOperandLength } from '@utils';
-import { MAX_OPERAND_LENGTH, MAX_HISTORY_LENGTH, ID_LENGTH } from '@constants';
+/* eslint-disable no-useless-catch */
+import { randomId, formatOperand } from '@utils';
+import { MAX_HISTORY_LENGTH, ID_LENGTH } from '@constants';
 import PubSub from './PubSub';
 
 export default class Model {
@@ -9,6 +10,8 @@ export default class Model {
     this.prevOperator = null;
     this.isHistoryActive = false;
 
+    this.isWaitingForSymbol = true;
+
     this.history = [];
 
     this.subscriptionManager = new PubSub();
@@ -16,16 +19,124 @@ export default class Model {
     this.subscribe = this.subscriptionManager.subscribe;
   }
 
-  publishHistory() {
-    this.publish('history', this.history);
-  }
-
   publishValues() {
     this.publish('result', {
-      prevOperand: setMaxOperandLength(this.prevOperand, MAX_OPERAND_LENGTH),
-      currentOperand: setMaxOperandLength(this.currentOperand, MAX_OPERAND_LENGTH),
+      prevOperand: formatOperand(this.prevOperand),
+      currentOperand: formatOperand(this.currentOperand),
       operator: this.prevOperator,
     });
+  }
+
+  setCurrentOperand = value => {
+    if (this.isWaitingForSymbol) {
+      this.currentOperand = value;
+    } else
+      this.currentOperand = this.currentOperand === '0' ? value : (this.currentOperand += value);
+
+    this.isWaitingForSymbol = false;
+
+    this.publishValues();
+  };
+
+  operate = currentOperand => {
+    try {
+      switch (this.prevOperator) {
+        case '+':
+          this.saveHistory();
+          this.prevOperand += currentOperand;
+          break;
+        case '-':
+          this.saveHistory();
+          this.prevOperand -= currentOperand;
+          break;
+        case '*':
+          this.saveHistory();
+          this.prevOperand *= currentOperand;
+          break;
+        case '/':
+          this.saveHistory();
+          if (currentOperand === 0) throw new Error('Cannot divide by 0');
+          this.prevOperand /= currentOperand;
+          break;
+        default:
+          this.prevOperand = currentOperand;
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  handleSymbol = symbol => {
+    if (!this.currentOperand) return;
+
+    if (this.isWaitingForSymbol) {
+      this.prevOperator = symbol;
+      this.currentOperand = this.prevOperand;
+
+      this.publishValues();
+    } else {
+      this.handleMath(symbol);
+    }
+  };
+
+  handleMath = symbol => {
+    try {
+      if (this.prevOperand === 0) {
+        this.prevOperand = parseFloat(this.currentOperand);
+      } else {
+        this.operate(parseFloat(this.currentOperand));
+      }
+
+      this.prevOperator = symbol;
+      this.publishValues();
+
+      this.currentOperand = '0';
+      this.isWaitingForSymbol = true;
+    } catch (error) {
+      this.handleReset().publish('error', {
+        error: error.message,
+      });
+    }
+  };
+
+  handleReset = () => {
+    this.currentOperand = '';
+    this.prevOperand = 0;
+    this.prevOperator = null;
+    return this;
+  };
+
+  handleEquals = () => {
+    if (!this.prevOperator || !this.currentOperand || this.isWaitingForSymbol) return;
+
+    try {
+      this.operate(parseFloat(this.currentOperand));
+
+      this.currentOperand = this.prevOperand;
+      this.prevOperator = null;
+
+      this.publishValues();
+
+      this.prevOperand = 0;
+    } catch (error) {
+      this.handleReset().publish('error', {
+        error: error.message,
+      });
+    }
+  };
+
+  handleDel = () => {
+    this.currentOperand = formatOperand(this.currentOperand).toString().slice(0, -1);
+
+    this.publishValues();
+  };
+
+  handleDecimal() {
+    this.currentOperand = this.currentOperand.toString().includes('.')
+      ? this.currentOperand
+      : (this.currentOperand += '.');
+
+    this.publishValues();
   }
 
   saveHistory() {
@@ -35,95 +146,25 @@ export default class Model {
       ...this.history,
       {
         id: randomId(ID_LENGTH),
-        prevOperand: this.prevOperand,
-        currentOperand: this.currentOperand,
+        prevOperand: formatOperand(this.prevOperand),
+        currentOperand: formatOperand(this.currentOperand),
         operator: this.prevOperator,
       },
     ];
   }
 
-  setCurrentOperand = value => {
-    this.currentOperand = this.currentOperand === '0' ? value : (this.currentOperand += value);
-    this.publishValues();
-  };
-
-  operate = currentOperand => {
-    if (this.prevOperator === '+') {
-      this.saveHistory();
-      this.prevOperand += currentOperand;
-    }
-    if (this.prevOperator === '-') {
-      this.saveHistory();
-      this.prevOperand -= currentOperand;
-    }
-    if (this.prevOperator === 'x') {
-      this.saveHistory();
-      this.prevOperand *= currentOperand;
-    }
-    if (this.prevOperator === '/') {
-      this.saveHistory();
-      this.prevOperand /= currentOperand;
-    }
-  };
-
-  handleMath = symbol => {
-    if (this.currentOperand === '0') return;
-
-    if (this.prevOperand === 0) {
-      this.prevOperand = parseFloat(this.currentOperand);
-    } else {
-      this.operate(parseFloat(this.currentOperand));
-    }
-
-    this.prevOperator = symbol;
-    this.publishValues();
-
-    this.currentOperand = '0';
-  };
-
-  handleReset = () => {
-    this.currentOperand = '0';
-    this.prevOperand = 0;
-
-    this.publishValues();
-  };
-
-  handleEquals = () => {
-    if (!this.prevOperator) return;
-
-    this.operate(parseFloat(this.currentOperand));
-
-    this.currentOperand = this.prevOperand;
-    this.prevOperator = null;
-
-    this.publishValues();
-
-    this.prevOperand = 0;
-  };
-
-  handleDel = () => {
-    this.currentOperand =
-      this.currentOperand.length === 1
-        ? '0'
-        : setMaxOperandLength(this.currentOperand, MAX_OPERAND_LENGTH).toString().slice(0, -1);
-
-    this.publishValues();
-  };
-
-  handleDecimal() {
-    this.currentOperand = !this.currentOperand.includes('.')
-      ? (this.currentOperand += '.')
-      : this.currentOperand;
-
-    this.publishValues();
+  publishHistory() {
+    this.publish('history', this.history);
   }
 
-  setValues(id) {
+  setValuesfromHistory(id) {
     const historyItem = this.history.find(item => item.id === id);
 
-    this.prevOperand = historyItem.prevOperand;
+    this.prevOperand = +historyItem.prevOperand;
     this.prevOperator = historyItem.operator;
     this.currentOperand = historyItem.currentOperand;
+
+    this.isWaitingForSymbol = false;
 
     return this;
   }

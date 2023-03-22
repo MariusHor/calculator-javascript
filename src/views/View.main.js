@@ -2,7 +2,26 @@ import { toggleClasses } from '@utils';
 import View from './View';
 
 export default class ViewMain extends View {
-  #inputValues = [7, 8, 9, 'DEL', 4, 5, 6, '+', 1, 2, 3, '-', '.', 0, '/', 'x', 'RESET', '='];
+  #inputValues = [
+    '7',
+    '8',
+    '9',
+    'Backspace',
+    '4',
+    '5',
+    '6',
+    '+',
+    '1',
+    '2',
+    '3',
+    '-',
+    '.',
+    '0',
+    '/',
+    '*',
+    'Escape',
+    'Enter',
+  ];
 
   generateInputButtons = () => {
     const inputs = this.#inputValues
@@ -10,8 +29,8 @@ export default class ViewMain extends View {
         input => `
         <li>
           <button class="${ViewMain.setInputClass(input)}" data-calc='input' data-type=${
-          typeof input === 'number' ? 'number' : 'symbol'
-        } data-value=${input}>${input}</button>
+          Number.isNaN(parseInt(input, 10)) ? 'symbol' : 'number'
+        } data-value=${input}>${ViewMain.setInputText(input)}</button>
         </li>
       `,
       )
@@ -22,13 +41,29 @@ export default class ViewMain extends View {
     `;
   };
 
+  static setInputText(input) {
+    switch (input) {
+      case 'Backspace': {
+        return 'DEL';
+      }
+      case 'Enter': {
+        return '=';
+      }
+      case 'Escape': {
+        return 'RESET';
+      }
+      default:
+        return input;
+    }
+  }
+
   static setInputClass(input) {
     switch (input) {
-      case 'DEL':
-      case 'RESET': {
+      case 'Backspace':
+      case 'Escape': {
         return 'button button--grey';
       }
-      case '=': {
+      case 'Enter': {
         return 'button button--orange';
       }
       default:
@@ -55,6 +90,13 @@ export default class ViewMain extends View {
       const { type, value } = userInput.dataset;
 
       callback(type, value);
+    });
+
+    document.addEventListener('keydown', event => {
+      if (this.#inputValues.includes(event.key)) {
+        const type = Number.isInteger(parseInt(event.key, 10)) ? 'number' : 'symbol';
+        callback(type, event.key);
+      }
     });
   };
 
