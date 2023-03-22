@@ -1,141 +1,75 @@
+import { ViewMain, ViewHistory, ViewResults } from '@views';
+
 import './App.scss';
 
 export default class App {
-  constructor({ root, calculator }) {
-    this.root = root;
-    this.calculator = calculator;
+  constructor(model) {
+    this.viewMain = new ViewMain(model);
+    this.viewHistory = new ViewHistory(model);
+    this.viewResults = new ViewResults(model);
 
-    this.isHistoryActive = false;
-
-    this.mainContainer = this.root.querySelector('.calculator__main');
-    this.historyButton = document.querySelector('.button--history');
-
-    this.inputValues = [7, 8, 9, 'DEL', 4, 5, 6, '+', 1, 2, 3, '-', '.', 0, '/', 'x', 'RESET', '='];
+    this.model = model;
   }
 
-  static setInputClass(input) {
-    switch (input) {
-      case 'DEL':
-      case 'RESET': {
-        return 'button button--grey';
-      }
-      case '=': {
-        return 'button button--orange';
-      }
-      default:
-        return 'button button--beige';
-    }
-  }
-
-  static setInputDataType(input) {
-    if (typeof input === 'number' || input === '.') return 'number';
-
-    if (input === 'DEL' || input === 'RESET') {
-      return 'action';
-    }
-    return 'operation';
-  }
-
-  generateInputButtons = () => {
-    const inputs = this.inputValues
-      .map(
-        input => `
-        <li>
-          <button class="${App.setInputClass(input)}" data-type=${App.setInputDataType(
-          input,
-        )} data-value=${input}>${input}</button>
-        </li>
-      `,
-      )
-      .join('');
-
-    return `
-            <ul class="main-grid">${inputs}</ul>
-    `;
+  handleUserInput = (type, value) => {
+    if (type === 'symbol') {
+      this.handleSymbolType(value);
+    } else this.handleNumberType(value);
   };
 
-  handleHistoryClick = () => {
-    this.historyButton.addEventListener('click', () => {
-      const { calculator, transitionViewSwitch } = this;
+  handleSymbolType = symbol => {
+    switch (symbol) {
+      case 'RESET':
+        this.model.handleReset();
+        break;
+      case '=':
+        this.model.handleEquals();
+        break;
+      case 'DEL':
+        this.model.handleDel();
+        break;
+      case '.':
+        this.model.handleDecimal();
+        break;
+      default:
+        this.model.handleMath(symbol);
+    }
+  };
 
-      if (!calculator.history.slice(1).length) return;
+  handleNumberType = value => {
+    this.model.setCurrentOperand(value);
+  };
 
-      transitionViewSwitch();
-    });
+  handleHistoryItemClick = id => {
+    this.transitionViewSwitch();
+    this.model.setValues(id).publishValues();
   };
 
   transitionViewSwitch = () => {
-    const { mainContainer, toggleHistoryView } = this;
+    const { viewMain, setActiveView, model } = this;
+    const isHistoryViewActive = model.toggleHistoryViewStatus();
 
     setTimeout(() => {
-      mainContainer.innerHTML = '';
+      viewMain.toggleContainer();
+      setActiveView(isHistoryViewActive);
+    }, 600);
 
-      mainContainer.classList.toggle('main-grid');
-      mainContainer.classList.toggle('history');
-      mainContainer.classList.toggle('opacity');
-
-      toggleHistoryView();
-    }, 700);
-
-    mainContainer.classList.toggle('opacity');
+    viewMain.toggleContainerOpacity();
   };
 
-  toggleHistoryView = () => {
-    const { calculator, mainContainer, generateInputButtons } = this;
-
-    if (!this.isHistoryActive) {
-      mainContainer.insertAdjacentHTML('afterbegin', App.generateHistoryMarkup(calculator.history));
-
-      this.isHistoryActive = true;
-    } else {
-      mainContainer.insertAdjacentHTML('afterbegin', generateInputButtons());
-
-      this.isHistoryActive = false;
-    }
-  };
-
-  static generateHistoryMarkup(history) {
-    return `
-      <ul>
-          ${history
-            .slice(1)
-            .map(
-              item => `
-              <li>
-                  <button class="button" data-result=${item.result}>${item.firstOperand} ${item.operation} ${item.secondOperand}</button>
-              </li>
-            `,
-            )
-            .join('')}
-      </ul>
-    `;
-  }
-
-  handleHistoryItemClick = () => {
-    this.mainContainer.addEventListener('click', event => {
-      const { result } = event.target.dataset;
-      if (!result) return;
-
-      this.calculator.initValues().updateDisplay(+result);
-      this.calculator.setCurrentInput(+result);
-
-      this.transitionViewSwitch();
-    });
+  setActiveView = isHistoryViewActive => {
+    if (isHistoryViewActive) {
+      this.model.publishHistory();
+    } else this.viewMain.render();
   };
 
   render() {
-    const {
-      mainContainer,
-      generateInputButtons,
-      calculator,
-      handleHistoryClick,
-      handleHistoryItemClick,
-    } = this;
+    const { transitionViewSwitch, handleHistoryItemClick, viewHistory, viewMain } = this;
 
-    mainContainer.insertAdjacentHTML('afterbegin', generateInputButtons());
-    calculator.run();
+    viewMain.render();
 
-    handleHistoryClick();
-    handleHistoryItemClick();
+    viewMain.bindUserInput(this.handleUserInput);
+    viewHistory.bindHistoryBtnClick(transitionViewSwitch);
+    viewHistory.bindHistoryItemClick(handleHistoryItemClick);
   }
 }

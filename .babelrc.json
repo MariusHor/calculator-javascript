@@ -8,16 +8,19 @@
     ]
   ],
   "plugins": [
-      ["babel-plugin-module-resolver", {
+    [
+      "babel-plugin-module-resolver",
+      {
         "alias": {
           "": "./src",
           "@assets": "./src/assets",
-          "@components": "./src/components",
-          "@containers": "./src/containers",
           "@constants": "./src/constants",
+          "@model": "./src/model",
           "@styles": "./src/styles",
-          "@utils": "./src/utils"
+          "@utils": "./src/utils",
+          "@views": "./src/views"
         }
-      }]
+      }
     ]
+  ]
 }

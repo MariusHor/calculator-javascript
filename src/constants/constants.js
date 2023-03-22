@@ -1,3 +1,3 @@
-const MAX_RESULT_LENGTH = 10;
-
-export default MAX_RESULT_LENGTH;
+export const MAX_OPERAND_LENGTH = 9;
+export const MAX_HISTORY_LENGTH = 5;
+export const ID_LENGTH = 8;
