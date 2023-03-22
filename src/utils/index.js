@@ -1,1 +1,1 @@
-export { setMaxDecimals, removeChild, getEl, toggleClasses } from './helpers';
+export { getEl, toggleClasses, randomId, setMaxOperandLength } from './helpers';

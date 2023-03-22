@@ -1,19 +1,3 @@
-import MAX_RESULT_LENGTH from '@constants/constants';
-
-export const setMaxDecimals = number => {
-  if (!Number.isInteger(number)) {
-    const index = number.toString().indexOf('.');
-
-    if (number.toString().slice(index).length > 5) return number.toFixed(MAX_RESULT_LENGTH - index);
-  }
-  return number;
-};
-
-export const removeChild = (root, selector) => {
-  const el = root.querySelector(selector);
-  if (el) root.removeChild(el);
-};
-
 export const getEl = selector => document.querySelector(selector);
 
 export const toggleClasses = (element, classes) => {
@@ -21,3 +5,10 @@ export const toggleClasses = (element, classes) => {
     element.classList.toggle(item);
   });
 };
+
+export const randomId = (length = 6) =>
+  Math.random()
+    .toString(36)
+    .substring(2, length + 2);
+
+export const setMaxOperandLength = (operand, length) => operand.toString().slice(0, length);
