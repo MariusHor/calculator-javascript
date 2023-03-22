@@ -103,7 +103,9 @@ export default class Model {
 
   handleDel = () => {
     this.currentOperand =
-      this.currentOperand.length === 1 ? '0' : this.currentOperand.toString().slice(0, -1);
+      this.currentOperand.length === 1
+        ? '0'
+        : setMaxOperandLength(this.currentOperand, MAX_OPERAND_LENGTH).toString().slice(0, -1);
 
     this.publishValues();
   };
