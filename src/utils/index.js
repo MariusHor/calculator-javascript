@@ -1,1 +1,1 @@
-export { getEl, toggleClasses, randomId, setMaxOperandLength } from './helpers';
+export { getEl, toggleClasses, randomId, setMaxOperandLength, formatOperand } from './helpers';
