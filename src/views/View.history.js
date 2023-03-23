@@ -21,18 +21,11 @@ export default class ViewHistory extends View {
         `;
 
   bindHistoryBtnClick = callback => {
-    this.$.historyButton.addEventListener('click', () => {
-      callback();
-    });
+    this.$.historyButton.addEventListener('click', callback);
   };
 
   bindHistoryItemClick = callback => {
-    this.$.mainContainer.addEventListener('click', event => {
-      const { id } = event.target.dataset;
-      if (!id) return;
-
-      callback(id);
-    });
+    this.$.mainContainer.addEventListener('click', callback);
   };
 
   render = history => {

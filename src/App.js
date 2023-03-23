@@ -1,4 +1,4 @@
-import { ViewMain, ViewHistory, ViewResults } from '@views';
+import { ViewMain, ViewHistory, ViewResults, ViewTheme } from '@views';
 
 import './App.scss';
 
@@ -7,6 +7,7 @@ export default class App {
     this.viewMain = new ViewMain(model);
     this.viewHistory = new ViewHistory(model);
     this.viewResults = new ViewResults(model);
+    this.viewTheme = new ViewTheme(model);
 
     this.model = model;
   }
@@ -43,7 +44,10 @@ export default class App {
     this.model.setCurrentOperand(value);
   };
 
-  handleHistoryItemClick = id => {
+  handleHistoryItemClick = event => {
+    const { id } = event.target.dataset;
+    if (!id) return;
+
     this.transitionViewSwitch();
     this.model.setValuesfromHistory(id).publishValues();
   };
@@ -67,11 +71,12 @@ export default class App {
   };
 
   render() {
-    const { transitionViewSwitch, handleHistoryItemClick, viewHistory, viewMain } = this;
+    const { transitionViewSwitch, handleHistoryItemClick } = this;
 
-    viewMain.render();
-    viewMain.bindUserInput(this.handleUserInput);
-    viewHistory.bindHistoryBtnClick(transitionViewSwitch);
-    viewHistory.bindHistoryItemClick(handleHistoryItemClick);
+    this.viewMain.render();
+    this.viewTheme.bindThemeClick();
+    this.viewMain.bindUserInput(this.handleUserInput);
+    this.viewHistory.bindHistoryBtnClick(transitionViewSwitch);
+    this.viewHistory.bindHistoryItemClick(handleHistoryItemClick);
   }
 }

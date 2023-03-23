@@ -1,0 +1,87 @@
+@use '../abstracts/' as *;
+
+.theme {
+  &--tealish-blue {
+    background-color: #3a4663;
+
+    .theme-switch {
+      &__radio-inputs {
+        background-color: #242d44;
+
+        .theme-input {
+          background-color: #d03f2f;
+
+          &:hover {
+            background-color: #f96b5b;
+          }
+        }
+      }
+    }
+
+    .calculator__header {
+      color: white;
+    }
+
+    .calculator__result-bar {
+      background-color: #181f33;
+      color: white;
+
+      &-left {
+        button {
+          &:hover {
+            color: #f96b5b;
+          }
+        }
+      }
+    }
+
+    .calculator__main {
+      background-color: #242d44;
+    }
+
+    .history {
+      color: #eae3dc;
+
+      li {
+        background-color: #647198;
+
+        &:hover {
+          background-color: #a2b2e1;
+        }
+      }
+    }
+
+    .button {
+      &:focus-visible {
+        outline-color: #a2b2e1;
+      }
+
+      &--beige {
+        background-color: #eae3dc;
+        color: #434a59;
+
+        &:hover {
+          background-color: #fffffe;
+        }
+      }
+
+      &--grey {
+        background-color: #647198;
+        color: white;
+
+        &:hover {
+          background-color: #a2b2e1;
+        }
+      }
+
+      &--orange {
+        background-color: #d03f2f;
+        color: white;
+
+        &:hover {
+          background-color: #f96b5b;
+        }
+      }
+    }
+  }
+}
