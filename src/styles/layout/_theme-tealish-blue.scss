@@ -2,17 +2,18 @@
 
 .theme {
   &--tealish-blue {
-    background-color: $clr-teal-bg;
+    background: url('/src/assets/bg-shape.svg') no-repeat, $clr-teal-bg;
+    background-position: center;
 
     .theme-switch {
       &__radio-inputs {
         background-color: $clr-teal-bg-2;
 
         .theme-input {
-          background-color: $clr-teal-accent-3;
+          background-color: $clr-teal-accent-2;
 
           &:hover {
-            background-color: $clr-teal-hover-3;
+            background-color: $clr-teal-hover-2;
           }
         }
       }
@@ -80,6 +81,12 @@
 
         &:hover {
           background-color: $clr-teal-hover-3;
+        }
+      }
+
+      &--history {
+        &:focus-visible {
+          outline-color: $clr-teal-hover-2;
         }
       }
     }

@@ -10,19 +10,28 @@ export default class ViewHistory {
     historyButton: getEl('.button--history'),
   };
 
-  static generateHistoryMarkup = data => `
-          <ul>
-              ${data
-                .map(
-                  item => `
-                  <li>
-                      <button class="button" data-id=${item.id}>${item.prevOperand} ${item.operator} ${item.currentOperand}</button>
-                  </li>
-                `,
-                )
-                .join('')}
-          </ul>
-        `;
+  static generateHistoryMarkup = data => {
+    if (!data.length)
+      return `
+        <p>
+          Perform some operations first!
+        </p>
+      `;
+
+    return `
+      <ul>
+          ${data
+            .map(
+              item => `
+              <li>
+                  <button class="button" data-id=${item.id}>${item.prevOperand} ${item.operator} ${item.currentOperand}</button>
+              </li>
+            `,
+            )
+            .join('')}
+      </ul>
+  `;
+  };
 
   bindHistoryBtnClick = callback => {
     this.$.historyButton.addEventListener('click', callback);

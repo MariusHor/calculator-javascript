@@ -2,7 +2,8 @@
 
 .theme {
   &--haiti {
-    background-color: $clr-haiti-bg;
+    background: url('/src/assets/bg-shape.svg') no-repeat, $clr-haiti-bg;
+    background-position: center;
     color: $clr-haiti-text;
 
     .theme-switch {
@@ -38,7 +39,7 @@
     .history {
       li {
         background-color: $clr-haiti-accent-2;
-        color: $clr-haiti-text-2;
+        color: $clr-haiti-text;
 
         &:hover {
           background-color: $clr-haiti-hover-2;
@@ -48,7 +49,7 @@
 
     .button {
       &:focus-visible {
-        outline-color: $clr-haiti-accent-2;
+        outline-color: $clr-haiti-accent-3;
       }
 
       &--primary {
@@ -61,7 +62,7 @@
 
       &--secondary {
         background-color: $clr-haiti-accent-2;
-        color: $clr-haiti-text-2;
+        color: $clr-haiti-text;
 
         &:hover {
           background-color: $clr-haiti-hover-2;
@@ -70,10 +71,16 @@
 
       &--third {
         background-color: $clr-haiti-accent-3;
-        color: $clr-haiti-text-3;
+        color: $clr-haiti-text-2;
 
         &:hover {
           background-color: $clr-haiti-hover-3;
+        }
+      }
+
+      &--history {
+        &:focus-visible {
+          outline-color: $clr-haiti-accent-3;
         }
       }
     }

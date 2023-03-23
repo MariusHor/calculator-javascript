@@ -2,7 +2,8 @@
 
 .theme {
   &--platinum {
-    background-color: $clr-platinum-bg;
+    background: url('/src/assets/bg-shape.svg') no-repeat, $clr-platinum-bg;
+    background-position: center;
 
     .theme-switch {
       &__radio-inputs {
@@ -23,7 +24,7 @@
     }
 
     .calculator__result-bar {
-      background-color: $clr-platinum-bg;
+      background-color: $clr-platinum-bg-2;
       color: $clr-platinum-text;
 
       &-left {
@@ -38,6 +39,10 @@
 
     .calculator__main {
       background-color: $clr-platinum-bg-2;
+
+      p {
+        color: $clr-platinum-text;
+      }
     }
 
     .history {
@@ -81,6 +86,12 @@
 
         &:hover {
           background-color: $clr-platinum-hover-3;
+        }
+      }
+
+      &--history {
+        &:focus-visible {
+          outline-color: $clr-platinum-accent-2;
         }
       }
     }

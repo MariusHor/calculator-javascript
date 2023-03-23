@@ -1,23 +1,23 @@
 // Theme - Tealish-Blue
 
-$clr-teal-bg: #3a4663;
-$clr-teal-bg-2: #242d44;
+$clr-teal-bg: linear-gradient(to right, #16222a, #3a6073);
+$clr-teal-bg-2: rgba(255, 255, 255, 0.1);
 
 $clr-teal-text: #434a59;
 $clr-teal-text-2: #eae3dc;
 
 $clr-teal-accent: #eae3dc;
-$clr-teal-accent-2: #647198;
-$clr-teal-accent-3: #d03f2f;
+$clr-teal-accent-2: #1d976c;
+$clr-teal-accent-3: transparent;
 
 $clr-teal-hover: #fffffe;
-$clr-teal-hover-2: #a2b2e1;
-$clr-teal-hover-3: #f96b5b;
+$clr-teal-hover-2: #93f9b9;
+$clr-teal-hover-3: #1d976c;
 
 // Theme - Platinum
 
-$clr-platinum-bg: #e6e6e6;
-$clr-platinum-bg-2: #d2cdcd;
+$clr-platinum-bg: linear-gradient(to right, #ddefbb, #ffeeee);
+$clr-platinum-bg-2: rgba(0, 0, 0, 0.1);
 
 $clr-platinum-text: #36362c;
 $clr-platinum-text-2: #eae3dc;
@@ -32,12 +32,11 @@ $clr-platinum-hover-3: #ff8a38;
 
 // Theme - Haiti
 
-$clr-haiti-bg: #17062a;
-$clr-haiti-bg-2: #1e0936;
+$clr-haiti-bg: linear-gradient(to right, #49a09d, #5f2c82);
+$clr-haiti-bg-2: rgba(0, 0, 0, 0.1);
 
-$clr-haiti-text: #ffe53d;
-$clr-haiti-text-2: #eae3dc;
-$clr-haiti-text-3: #1a2327;
+$clr-haiti-text: #eae3dc;
+$clr-haiti-text-2: #1a2327;
 
 $clr-haiti-accent: #331c4d;
 $clr-haiti-accent-2: #56077c;
