@@ -29,7 +29,7 @@ export default class App {
         break;
       case 'DEL':
       case 'Backspace':
-        this.model.handleDel();
+        this.model.handleDelete();
         break;
       case '.':
         this.model.handleDecimal();
@@ -70,7 +70,6 @@ export default class App {
     const { transitionViewSwitch, handleHistoryItemClick, viewHistory, viewMain } = this;
 
     viewMain.render();
-
     viewMain.bindUserInput(this.handleUserInput);
     viewHistory.bindHistoryBtnClick(transitionViewSwitch);
     viewHistory.bindHistoryItemClick(handleHistoryItemClick);

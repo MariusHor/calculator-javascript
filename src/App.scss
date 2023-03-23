@@ -1,3 +1,4 @@
+@use './styles/abstracts/' as *;
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
 
 #root {
@@ -92,7 +93,10 @@
     }
 
     .header--l {
-      font-size: 36px;
+      font-size: 30px;
+      @include breakpoint(small) {
+        font-size: 36px;
+      }
     }
   }
 
