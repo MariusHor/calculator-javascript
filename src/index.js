@@ -1,4 +1,4 @@
-import Model from '@model';
+import { Model } from '@model';
 import App from './App';
 
 import '@styles/main.scss';

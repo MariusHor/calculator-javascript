@@ -1,0 +1,81 @@
+@use '../abstracts/' as *;
+
+.theme {
+  &--haiti {
+    background-color: $clr-haiti-bg;
+    color: $clr-haiti-text;
+
+    .theme-switch {
+      &__radio-inputs {
+        background-color: $clr-haiti-bg-2;
+
+        .theme-input {
+          background-color: $clr-haiti-accent-2;
+
+          &:hover {
+            background-color: $clr-haiti-hover-2;
+          }
+        }
+      }
+    }
+    .calculator__result-bar {
+      background-color: $clr-haiti-bg-2;
+
+      &-left {
+        button {
+          color: $clr-haiti-accent-3;
+          &:hover {
+            color: $clr-haiti-hover-3;
+          }
+        }
+      }
+    }
+
+    .calculator__main {
+      background-color: $clr-haiti-bg-2;
+    }
+
+    .history {
+      li {
+        background-color: $clr-haiti-accent-2;
+        color: $clr-haiti-text-2;
+
+        &:hover {
+          background-color: $clr-haiti-hover-2;
+        }
+      }
+    }
+
+    .button {
+      &:focus-visible {
+        outline-color: $clr-haiti-accent-2;
+      }
+
+      &--primary {
+        background-color: $clr-haiti-accent;
+
+        &:hover {
+          background-color: $clr-haiti-hover;
+        }
+      }
+
+      &--secondary {
+        background-color: $clr-haiti-accent-2;
+        color: $clr-haiti-text-2;
+
+        &:hover {
+          background-color: $clr-haiti-hover-2;
+        }
+      }
+
+      &--third {
+        background-color: $clr-haiti-accent-3;
+        color: $clr-haiti-text-3;
+
+        &:hover {
+          background-color: $clr-haiti-hover-3;
+        }
+      }
+    }
+  }
+}

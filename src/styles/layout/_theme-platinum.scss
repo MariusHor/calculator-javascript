@@ -1,0 +1,88 @@
+@use '../abstracts/' as *;
+
+.theme {
+  &--platinum {
+    background-color: $clr-platinum-bg;
+
+    .theme-switch {
+      &__radio-inputs {
+        background-color: $clr-platinum-bg-2;
+
+        .theme-input {
+          background-color: $clr-platinum-accent-3;
+
+          &:hover {
+            background-color: $clr-platinum-hover-3;
+          }
+        }
+      }
+    }
+
+    .calculator__header {
+      color: $clr-platinum-text;
+    }
+
+    .calculator__result-bar {
+      background-color: $clr-platinum-bg;
+      color: $clr-platinum-text;
+
+      &-left {
+        button {
+          color: $clr-platinum-accent-3;
+          &:hover {
+            color: $clr-platinum-hover-3;
+          }
+        }
+      }
+    }
+
+    .calculator__main {
+      background-color: $clr-platinum-bg-2;
+    }
+
+    .history {
+      color: $clr-platinum-text-2;
+
+      li {
+        background-color: $clr-platinum-accent-2;
+
+        &:hover {
+          background-color: $clr-platinum-hover-2;
+        }
+      }
+    }
+
+    .button {
+      &:focus-visible {
+        outline-color: $clr-platinum-accent-2;
+      }
+
+      &--primary {
+        background-color: $clr-platinum-accent;
+        color: $clr-platinum-text;
+
+        &:hover {
+          background-color: $clr-platinum-hover;
+        }
+      }
+
+      &--secondary {
+        background-color: $clr-platinum-accent-2;
+        color: $clr-platinum-text-2;
+
+        &:hover {
+          background-color: $clr-platinum-hover-2;
+        }
+      }
+
+      &--third {
+        background-color: $clr-platinum-accent-3;
+        color: $clr-platinum-text-2;
+
+        &:hover {
+          background-color: $clr-platinum-hover-3;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+@use '../abstracts/' as *;
+
+.theme {
+  &--tealish-blue {
+    background-color: $clr-teal-bg;
+
+    .theme-switch {
+      &__radio-inputs {
+        background-color: $clr-teal-bg-2;
+
+        .theme-input {
+          background-color: $clr-teal-accent-3;
+
+          &:hover {
+            background-color: $clr-teal-hover-3;
+          }
+        }
+      }
+    }
+
+    .calculator__header {
+      color: $clr-teal-text-2;
+    }
+
+    .calculator__result-bar {
+      background-color: $clr-teal-bg-2;
+      color: $clr-teal-text-2;
+
+      &-left {
+        button {
+          &:hover {
+            color: $clr-teal-hover-3;
+          }
+        }
+      }
+    }
+
+    .calculator__main {
+      background-color: $clr-teal-bg-2;
+    }
+
+    .history {
+      color: $clr-teal-text-2;
+
+      li {
+        background-color: $clr-teal-accent-2;
+
+        &:hover {
+          background-color: $clr-teal-hover-2;
+        }
+      }
+    }
+
+    .button {
+      &:focus-visible {
+        outline-color: $clr-teal-hover-2;
+      }
+
+      &--primary {
+        background-color: $clr-teal-accent;
+        color: $clr-teal-text;
+
+        &:hover {
+          background-color: $clr-teal-hover;
+        }
+      }
+
+      &--secondary {
+        background-color: $clr-teal-accent-2;
+        color: $clr-teal-text-2;
+
+        &:hover {
+          background-color: $clr-teal-hover-2;
+        }
+      }
+
+      &--third {
+        background-color: $clr-teal-accent-3;
+        color: $clr-teal-text-2;
+
+        &:hover {
+          background-color: $clr-teal-hover-3;
+        }
+      }
+    }
+  }
+}

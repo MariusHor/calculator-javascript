@@ -1,6 +1,14 @@
 import { MAX_OPERAND_LENGTH } from '@constants';
 
-export const getEl = selector => document.querySelector(selector);
+export const getEl = (selector, options) => {
+  let element;
+
+  if (options?.all) {
+    element = document.querySelectorAll(selector);
+  } else element = document.querySelector(selector);
+
+  return element;
+};
 
 export const toggleClasses = (element, classes) => {
   classes.forEach(item => {

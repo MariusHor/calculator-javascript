@@ -1,8 +1,8 @@
+@use './styles/abstracts/' as *;
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
 
 #root {
   min-height: 100vh;
-  background-color: #3a4663;
   font-family: 'League Spartan', sans-serif;
 }
 
@@ -18,7 +18,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
 
     &-left {
       font-size: 32px;
@@ -44,8 +43,6 @@
     gap: 1rem;
     border-radius: 10px;
     padding: 1rem;
-    background-color: #181f33;
-    color: white;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
 
     div {
@@ -61,12 +58,7 @@
       font-size: 18px;
 
       button {
-        background-color: #181f33;
         transition: color 0.2s ease-in-out;
-
-        &:hover {
-          color: #f96b5b;
-        }
       }
     }
 
@@ -92,7 +84,10 @@
     }
 
     .header--l {
-      font-size: 36px;
+      font-size: 30px;
+      @include breakpoint(small) {
+        font-size: 36px;
+      }
     }
   }
 
@@ -101,7 +96,6 @@
     height: fit-content;
     padding: 1.5rem;
     border-radius: 10px;
-    background-color: #242d44;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
     transition: opacity 0.3s ease-in-out, transform 0.4s cubic-bezier(0.85, 0.05, 0.18, 1.35);
 
@@ -126,36 +120,29 @@
 }
 
 .theme-switch {
-  &__themes {
+  &__indicators {
     display: flex;
     justify-content: space-around;
   }
 
-  &__toggle {
+  &__radio-inputs {
     display: flex;
     justify-content: space-between;
     width: 71px;
     height: 26px;
     padding: 0.3rem 0.3rem;
     border-radius: 50px;
-    background-color: #242d44;
 
-    input {
+    .theme-input {
       height: 16px;
       width: 16px;
       border-radius: 50%;
       appearance: none;
-      background-color: #d03f2f;
       opacity: 0;
 
       &:hover {
         cursor: pointer;
-        background-color: #f96b5b;
       }
-    }
-
-    #theme-one {
-      opacity: 1;
     }
   }
 }
@@ -169,48 +156,24 @@
 
   &:focus-visible {
     outline-width: 3px;
-    outline-color: #a2b2e1;
     outline-style: dotted;
     outline-offset: 5px;
   }
 
-  &--beige {
-    background-color: #eae3dc;
-    color: #434a59;
+  &--primary {
     font-size: 36px;
-
-    &:hover {
-      background-color: #fffffe;
-    }
   }
 
-  &--grey {
+  &--secondary {
     padding-top: 5px;
-    background-color: #647198;
-    color: white;
     font-size: 22px;
     grid-column: 3/4;
-
-    &:hover {
-      background-color: #a2b2e1;
-    }
   }
 
-  &--orange {
-    background-color: #d03f2f;
-    color: white;
+  &--third {
+    padding-top: 5px;
     font-size: 22px;
-
-    &:hover {
-      background-color: #f96b5b;
-    }
   }
-}
-
-.history-container {
-  background-color: #3a4663;
-  padding: 10rem;
-  border-radius: 8px;
 }
 
 .main-grid {
@@ -226,7 +189,6 @@
 .history {
   display: flex;
   justify-content: center;
-  color: #eae3dc;
 
   ul {
     display: flex;
@@ -238,14 +200,9 @@
 
   li {
     height: fit-content;
-    background-color: #647198;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
       rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     transition: 0.2s ease-in-out;
-
-    &:hover {
-      background-color: #a2b2e1;
-    }
 
     button {
       width: 100%;
@@ -259,4 +216,8 @@
 .opacity {
   transform: scale(0.9);
   opacity: 0;
+}
+
+.active {
+  opacity: 1 !important;
 }

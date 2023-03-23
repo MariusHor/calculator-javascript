@@ -1,22 +1,11 @@
 /* eslint-disable no-useless-catch */
-import { randomId, formatOperand } from '@utils';
-import { MAX_HISTORY_LENGTH, ID_LENGTH } from '@constants';
-import PubSub from './PubSub';
+import { formatOperand } from '@utils';
+import HistoryManager from './historyManager';
 
-export default class Model {
+export default class Model extends HistoryManager {
   constructor() {
-    this.prevOperand = 0;
-    this.currentOperand = '';
-    this.prevOperator = null;
-    this.isHistoryActive = false;
-
+    super();
     this.isWaitingForSymbol = true;
-
-    this.history = [];
-
-    this.subscriptionManager = new PubSub();
-    this.publish = this.subscriptionManager.publish;
-    this.subscribe = this.subscriptionManager.subscribe;
   }
 
   publishValues() {
@@ -28,13 +17,11 @@ export default class Model {
   }
 
   setCurrentOperand = value => {
-    if (this.isWaitingForSymbol) {
+    if (this.isWaitingForSymbol || this.currentOperand === '0') {
       this.currentOperand = value;
-    } else
-      this.currentOperand = this.currentOperand === '0' ? value : (this.currentOperand += value);
+    } else this.currentOperand += value;
 
     this.isWaitingForSymbol = false;
-
     this.publishValues();
   };
 
@@ -125,7 +112,7 @@ export default class Model {
     }
   };
 
-  handleDel = () => {
+  handleDelete = () => {
     this.currentOperand = formatOperand(this.currentOperand).toString().slice(0, -1);
 
     this.publishValues();
@@ -137,40 +124,5 @@ export default class Model {
       : (this.currentOperand += '.');
 
     this.publishValues();
-  }
-
-  saveHistory() {
-    this.history = this.history.length >= MAX_HISTORY_LENGTH ? this.history.slice(1) : this.history;
-
-    this.history = [
-      ...this.history,
-      {
-        id: randomId(ID_LENGTH),
-        prevOperand: formatOperand(this.prevOperand),
-        currentOperand: formatOperand(this.currentOperand),
-        operator: this.prevOperator,
-      },
-    ];
-  }
-
-  publishHistory() {
-    this.publish('history', this.history);
-  }
-
-  setValuesfromHistory(id) {
-    const historyItem = this.history.find(item => item.id === id);
-
-    this.prevOperand = +historyItem.prevOperand;
-    this.prevOperator = historyItem.operator;
-    this.currentOperand = historyItem.currentOperand;
-
-    this.isWaitingForSymbol = false;
-
-    return this;
-  }
-
-  toggleHistoryViewStatus() {
-    this.isHistoryActive = !this.isHistoryActive;
-    return this.isHistoryActive;
   }
 }
