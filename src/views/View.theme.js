@@ -1,7 +1,12 @@
-import View from './View';
+import { getEl } from '@utils';
+import { THEME_CLASSES } from '../constants';
 
-export default class ViewTheme extends View {
-  #themeClasses = ['theme--platinum', 'theme--tealish-blue', 'theme--haiti'];
+export default class ViewTheme {
+  $ = {
+    root: getEl('#root'),
+    themeSwitch: getEl('.theme-switch'),
+    themes: getEl('.theme-input', { all: true }),
+  };
 
   toggleActiveClass(element) {
     this.$.themes.forEach(theme => {
@@ -12,7 +17,7 @@ export default class ViewTheme extends View {
   }
 
   toggleTheme(id) {
-    this.$.root.classList.remove(...this.#themeClasses);
+    this.$.root.classList.remove(...THEME_CLASSES);
     this.$.root.classList.add(id);
   }
 

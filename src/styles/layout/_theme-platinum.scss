@@ -2,85 +2,85 @@
 
 .theme {
   &--platinum {
-    background-color: #e6e6e6;
+    background-color: $clr-platinum-bg;
 
     .theme-switch {
       &__radio-inputs {
-        background-color: #d2cdcd;
+        background-color: $clr-platinum-bg-2;
 
         .theme-input {
-          background-color: #d03f2f;
+          background-color: $clr-platinum-accent-3;
 
           &:hover {
-            background-color: #f96b5b;
+            background-color: $clr-platinum-hover-3;
           }
         }
       }
     }
 
     .calculator__header {
-      color: #36362c;
+      color: $clr-platinum-text;
     }
 
     .calculator__result-bar {
-      background-color: #eeeeee;
-      color: #36362c;
+      background-color: $clr-platinum-bg;
+      color: $clr-platinum-text;
 
       &-left {
         button {
-          color: #c85402;
+          color: $clr-platinum-accent-3;
           &:hover {
-            color: #ff8a38;
+            color: $clr-platinum-hover-3;
           }
         }
       }
     }
 
     .calculator__main {
-      background-color: #d2cdcd;
+      background-color: $clr-platinum-bg-2;
     }
 
     .history {
-      color: #eae3dc;
+      color: $clr-platinum-text-2;
 
       li {
-        background-color: #378187;
+        background-color: $clr-platinum-accent-2;
 
         &:hover {
-          background-color: #62b5bc;
+          background-color: $clr-platinum-hover-2;
         }
       }
     }
 
     .button {
       &:focus-visible {
-        outline-color: #62b5bc;
+        outline-color: $clr-platinum-accent-2;
       }
 
-      &--beige {
-        background-color: #eae3dc;
-        color: #36362c;
+      &--primary {
+        background-color: $clr-platinum-accent;
+        color: $clr-platinum-text;
 
         &:hover {
-          background-color: #fffffe;
+          background-color: $clr-platinum-hover;
         }
       }
 
-      &--grey {
-        background-color: #378187;
-        color: white;
+      &--secondary {
+        background-color: $clr-platinum-accent-2;
+        color: $clr-platinum-text-2;
 
         &:hover {
-          background-color: #62b5bc;
+          background-color: $clr-platinum-hover-2;
         }
       }
 
-      &--orange {
-        background-color: #c85402;
-        color: white;
+      &--third {
+        background-color: $clr-platinum-accent-3;
+        color: $clr-platinum-text-2;
 
         &:hover {
-          background-color: #ff8a38;
+          background-color: $clr-platinum-hover-3;
         }
       }
     }

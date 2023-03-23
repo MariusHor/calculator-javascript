@@ -2,80 +2,78 @@
 
 .theme {
   &--haiti {
-    background-color: #17062a;
-    color: #ffe53d;
+    background-color: $clr-haiti-bg;
+    color: $clr-haiti-text;
 
     .theme-switch {
       &__radio-inputs {
-        background-color: #331c4d;
+        background-color: $clr-haiti-bg-2;
 
         .theme-input {
-          background-color: #00ded0;
+          background-color: $clr-haiti-accent-2;
 
           &:hover {
-            background-color: #93fff8;
+            background-color: $clr-haiti-hover-2;
           }
         }
       }
     }
     .calculator__result-bar {
-      background-color: #1e0936;
+      background-color: $clr-haiti-bg-2;
 
       &-left {
         button {
-          color: #00ded0;
+          color: $clr-haiti-accent-3;
           &:hover {
-            color: #93fff8;
+            color: $clr-haiti-hover-3;
           }
         }
       }
     }
 
     .calculator__main {
-      background-color: #1e0936;
+      background-color: $clr-haiti-bg-2;
     }
 
     .history {
-      color: #eae3dc;
-
       li {
-        background-color: #00ded0;
-        color: #1a2327;
+        background-color: $clr-haiti-accent-2;
+        color: $clr-haiti-text-2;
 
         &:hover {
-          background-color: #93fff8;
+          background-color: $clr-haiti-hover-2;
         }
       }
     }
 
     .button {
       &:focus-visible {
-        outline-color: #00ded0;
+        outline-color: $clr-haiti-accent-2;
       }
 
-      &--beige {
-        background-color: #331c4d;
+      &--primary {
+        background-color: $clr-haiti-accent;
 
         &:hover {
-          background-color: #6c34ac;
+          background-color: $clr-haiti-hover;
         }
       }
 
-      &--grey {
-        background-color: #56077c;
-        color: white;
+      &--secondary {
+        background-color: $clr-haiti-accent-2;
+        color: $clr-haiti-text-2;
 
         &:hover {
-          background-color: #8631af;
+          background-color: $clr-haiti-hover-2;
         }
       }
 
-      &--orange {
-        background-color: #00ded0;
-        color: #1a2327;
+      &--third {
+        background-color: $clr-haiti-accent-3;
+        color: $clr-haiti-text-3;
 
         &:hover {
-          background-color: #93fff8;
+          background-color: $clr-haiti-hover-3;
         }
       }
     }

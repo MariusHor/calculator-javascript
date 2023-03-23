@@ -1,11 +1,15 @@
-import View from './View';
+import { getEl } from '@utils';
 
-export default class ViewResults extends View {
+export default class ViewResults {
   constructor(model) {
-    super();
     model.subscribe('result', this.render);
     model.subscribe('error', this.render);
   }
+
+  $ = {
+    resultField: getEl('.calculator__result'),
+    tempField: getEl('.calculator__temp-result'),
+  };
 
   toggleResultFieldClasses(state) {
     if (state.error) {

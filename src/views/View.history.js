@@ -1,10 +1,14 @@
-import View from './View';
+import { getEl } from '@utils';
 
-export default class ViewHistory extends View {
+export default class ViewHistory {
   constructor(model) {
-    super();
     model.subscribe('history', this.render);
   }
+
+  $ = {
+    mainContainer: getEl('.calculator__main'),
+    historyButton: getEl('.button--history'),
+  };
 
   static generateHistoryMarkup = data => `
           <ul>

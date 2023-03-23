@@ -1,40 +1,21 @@
-import { toggleClasses } from '@utils';
-import View from './View';
+import { toggleClasses, getEl } from '@utils';
+import { INPUT_VALUES } from '../constants';
 
-export default class ViewMain extends View {
-  #inputValues = [
-    '7',
-    '8',
-    '9',
-    'Backspace',
-    '4',
-    '5',
-    '6',
-    '+',
-    '1',
-    '2',
-    '3',
-    '-',
-    '.',
-    '0',
-    '/',
-    '*',
-    'Escape',
-    'Enter',
-  ];
+export default class ViewMain {
+  $ = {
+    mainContainer: getEl('.calculator__main'),
+  };
 
-  generateInputButtons = () => {
-    const inputs = this.#inputValues
-      .map(
-        input => `
+  static generateInputButtons = () => {
+    const inputs = INPUT_VALUES.map(
+      input => `
         <li>
           <button class="${ViewMain.setInputClass(input)}" data-calc='input' data-type=${
-          Number.isNaN(parseInt(input, 10)) ? 'symbol' : 'number'
-        } data-value=${input}>${ViewMain.setInputText(input)}</button>
+        Number.isNaN(parseInt(input, 10)) ? 'symbol' : 'number'
+      } data-value=${input}>${ViewMain.setInputText(input)}</button>
         </li>
       `,
-      )
-      .join('');
+    ).join('');
 
     return `
             <ul class="main-grid">${inputs}</ul>
@@ -61,21 +42,19 @@ export default class ViewMain extends View {
     switch (input) {
       case 'Backspace':
       case 'Escape': {
-        return 'button button--grey';
+        return 'button button--third';
       }
       case 'Enter': {
-        return 'button button--orange';
+        return 'button button--secondary';
       }
       default:
-        return 'button button--beige';
+        return 'button button--primary';
     }
   }
 
   toggleContainer = () => {
-    const { mainContainer } = this.$;
-
-    mainContainer.innerHTML = '';
-    toggleClasses(mainContainer, ['main-grid', 'history', 'opacity']);
+    this.$.mainContainer.innerHTML = '';
+    toggleClasses(this.$.mainContainer, ['main-grid', 'history', 'opacity']);
   };
 
   toggleContainerOpacity() {
@@ -83,7 +62,7 @@ export default class ViewMain extends View {
   }
 
   bindUserInput = callback => {
-    this.$.inputsContainer.addEventListener('click', event => {
+    this.$.mainContainer.addEventListener('click', event => {
       const userInput = event.target.closest("[data-calc='input']");
       if (!userInput) return;
 
@@ -93,7 +72,7 @@ export default class ViewMain extends View {
     });
 
     document.addEventListener('keydown', event => {
-      if (this.#inputValues.includes(event.key)) {
+      if (INPUT_VALUES.includes(event.key)) {
         const type = Number.isInteger(parseInt(event.key, 10)) ? 'number' : 'symbol';
         callback(type, event.key);
       }
@@ -101,6 +80,6 @@ export default class ViewMain extends View {
   };
 
   render = () => {
-    this.$.mainContainer.insertAdjacentHTML('afterbegin', this.generateInputButtons());
+    this.$.mainContainer.insertAdjacentHTML('afterbegin', ViewMain.generateInputButtons());
   };
 }

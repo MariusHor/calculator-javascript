@@ -160,17 +160,18 @@
     outline-offset: 5px;
   }
 
-  &--beige {
+  &--primary {
     font-size: 36px;
   }
 
-  &--grey {
+  &--secondary {
     padding-top: 5px;
     font-size: 22px;
     grid-column: 3/4;
   }
 
-  &--orange {
+  &--third {
+    padding-top: 5px;
     font-size: 22px;
   }
 }
