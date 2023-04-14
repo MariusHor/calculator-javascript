@@ -50,9 +50,9 @@ In future developments, I would like to add more complex operations and advanced
 
 ### Useful resources
 
-[MDN Web Docs](https://developer.mozilla.org/en-US/)
-[Webpack Documentation](https://webpack.js.org/concepts/)
-[JavaScript.info](https://javascript.info/)
+- [MDN Web Docs](https://developer.mozilla.org/en-US/)
+- [Webpack Documentation](https://webpack.js.org/concepts/)
+- [JavaScript.info](https://javascript.info/)
 
 ## Author
 
