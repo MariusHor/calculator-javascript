@@ -57,4 +57,4 @@ In future developments, I would like to add more complex operations and advanced
 ## Author
 
 - Github - [@MariusHor](https://github.com/MariusHor/)
-- Frontend Mentor - [@MariusHor](https://www.frontendmentor.io/profile/MariusHor)r
+- Frontend Mentor - [@MariusHor](https://www.frontendmentor.io/profile/MariusHor)
