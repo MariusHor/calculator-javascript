@@ -44,12 +44,6 @@
 
 This is a vanilla JavaScript calculator app that allows users to switch between 3 nice-looking themes, provides basic arithmetic operations, and provides the ability to see a history of the last 5 calculations performed. The app is written in an MV* variation architecture, implements a PubSub class to manage communication of data from the Model to the listening views whenever the state changes. A HistoryManager class is also included to handle the history logic of the performed calculations and is separated from the Model class for better separation of concerns.
 
-Using a variation of the MV* architecture to organize code in a more scalable and maintainable way.
-Implementing a PubSub class to manage communication between different parts of the app.
-Handling history logic with a separate HistoryManager class for better separation of concerns.
-Using SCSS to write more maintainable and reusable CSS.
-Webpack configuration and bundling.
-
 ### Continued development
 
 In future developments, I would like to add more complex operations and advanced functionalities to the calculator, such as the ability to calculate percentages, square roots, and exponents.
